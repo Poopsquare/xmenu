@@ -8,7 +8,8 @@
     "build:css": "tailwindcss -o ./app/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"cross-env NODE_ENV=development netlify dev\"",
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
-    "postinstall": "remix setup node"
+    "postinstall": "remix setup node",
+    "typecheck": "tsc -b"
   },
   "dependencies": {
     "@netlify/functions": "^0.10.0",
