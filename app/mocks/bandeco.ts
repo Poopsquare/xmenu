@@ -1,31 +1,6 @@
-# Data format for xmenu
+import { Menu } from "../types/menu";
 
-```typescript
-interface Menu {
-  id: number;
-  slug: string;
-  name: string;
-  categories: Category[];
-}
-
-interface Category {
-  id: number;
-  name: string;
-  itens: Item[];
-}
-
-interface Item {
-  id: number;
-  name: string;
-  price: number;
-  description?: string;
-}
-```
-
-Example:
-
-```javascript
-const menu = {
+export const BANDECO: Menu = {
   id: 1,
   slug: "bandeco",
   name: "Bandeco",
@@ -33,7 +8,7 @@ const menu = {
     {
       id: 1,
       name: "Cervejas",
-      itens: [
+      items: [
         { id: 1, name: "Skol", price: 990 },
         { id: 2, name: "Brahma", price: 990 },
         { id: 3, name: "Original", price: 1090 },
@@ -43,7 +18,7 @@ const menu = {
     {
       id: 2,
       name: "Petiscos",
-      itens: [
+      items: [
         {
           id: 5,
           name: "Larica",
@@ -69,7 +44,7 @@ const menu = {
     {
       id: 3,
       name: "Bebidas",
-      itens: [
+      items: [
         { id: 9, name: "Coca-Cola", price: 790 },
         { id: 10, name: "Guaraná", price: 790 },
         { id: 11, name: "Aguá Tônica", price: 790 },
@@ -78,4 +53,3 @@ const menu = {
     },
   ],
 };
-```
