@@ -13,6 +13,9 @@ export default function Menu() {
   const menu = useLoaderData<Menu>();
   return (
     <article>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
       <h1>{menu.name}</h1>
       {menu.categories.map(category => (
         <CategorySection category={category} key={category.name}/>
