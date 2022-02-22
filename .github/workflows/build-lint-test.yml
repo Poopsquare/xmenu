@@ -1,0 +1,55 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+    steps:
+      - name: Build project
+        run: npm run build
+
+  prettier:
+    name: Prettier Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Prettier
+        id: prettier-run
+        uses: rutajdash/prettier-cli-action@add69d989fe32136a4ee5f6f9026ae830bbc21b8
+        with:
+          config_path: ./.prettierrc.json
+
+      # This step only runs if prettier finds errors causing the previous step to fail
+      # This steps lists the files where errors were found
+      - name: Prettier Output
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          echo "The following files are not formatted:"
+          echo "${{steps.prettier-run.outputs.prettier_output}}"
+
+  eslint:
+    name: ESLint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run ESLint
+        uses: mrdivyansh/eslint-action@1.0.7
+        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+        with:
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+          eslint-rc: .eslintrc.js
+          execute-on-files:
+            - ./packages
