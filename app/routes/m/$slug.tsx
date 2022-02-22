@@ -1,16 +1,20 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { json, LoaderFunction, useLoaderData } from "remix";
 import {CategorySection} from "~/components/category/category";
 import {getMenu} from "~/data";
 import { Menu } from "~/types";
 
+type LoaderData = {
+  menu: Menu
+}
 
 export const loader: LoaderFunction = async ({ params }) => {
   console.log("slug", params.slug);
-  return await getMenu()
+  const menu = await getMenu()
+  return json<LoaderData>({ menu });
 };
 
-export default function Menu() {
-  const menu = useLoaderData<Menu>();
+export default function MenuView() {
+  const { menu } = useLoaderData<LoaderData>();
   return (
     <article>
       <h1>{menu.name}</h1>
